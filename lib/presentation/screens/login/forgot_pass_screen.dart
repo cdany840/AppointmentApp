@@ -16,11 +16,11 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
   final TextEditingController _emailController = TextEditingController();
 
   Future<AuthStatus> resetPassword({required String email}) async {
-  await _auth
-      .sendPasswordResetEmail(email: email)
-      .then((value) => _status = AuthStatus.successful)
-      .catchError((e) => _status = AuthExceptionHandler.handleAuthException(e));
-  return _status;
+    await _auth
+        .sendPasswordResetEmail(email: email)
+        .then((value) => _status = AuthStatus.successful)
+        .catchError((e) => _status = AuthExceptionHandler.handleAuthException(e));
+    return _status;
   }
 
   @override
@@ -46,21 +46,6 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
               resetPassword(email: _emailController.text);
             },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: const Text('Forgot Password', style: TextStyle(color: Color.fromARGB(255, 245, 245, 245)),),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register');
-                },
-                child: const Text('Register', style: TextStyle(color: Color.fromARGB(255, 245, 245, 245)),),
-              ),
-            ],
-          )
         ],
       ),
     );

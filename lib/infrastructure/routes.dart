@@ -1,3 +1,4 @@
+import 'package:appointment_app/presentation/screens/login/forgot_pass_screen.dart';
 import 'package:appointment_app/presentation/screens/login/login_screen.dart';
 import 'package:appointment_app/presentation/screens/login/register_screen.dart';
 import 'package:appointment_app/test.dart';
@@ -8,5 +9,6 @@ Map<String, WidgetBuilder> getRoutes(){
     '/login' : (BuildContext context) => const LoginScreen(),
     '/register' : (BuildContext context) => const RegisterScreen(),
     '/home' : (BuildContext context) => const HomeScreen(),
+    '/forgot' : (BuildContext context) => const ForgotPassScreen(),
   };
 }
