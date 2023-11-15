@@ -11,7 +11,6 @@ const List<Color> _colorTheme = [
   Colors.orange,
   Colors.pink,
   Colors.lightBlue,
-  Colors.blueGrey,
   // ? Juan's Colors
   Color.fromARGB(255, 51, 51, 51),
   Color.fromARGB(255, 245, 245, 245),
@@ -23,23 +22,29 @@ const List<Color> _colorTheme = [
 class AppTheme {
   
   final int selectedColor;
+  final String? fontFamily;
 
   AppTheme({
-    this.selectedColor = 0
-  }): assert( selectedColor >= 0 && selectedColor <= _colorTheme.length - 1, 
-              'Colors must be between 0 and ${ _colorTheme.length }' );
+    this.selectedColor = 0,
+    this.fontFamily
+  }): assert(
+    selectedColor >= 0 && selectedColor <= _colorTheme.length - 1, 
+    'Colors must be between 0 and ${ _colorTheme.length }'
+  );
 
   ThemeData theme(Brightness brightness) {
     return ThemeData(
       useMaterial3: true,
+      fontFamily: fontFamily,
       // colorSchemeSeed: _colorTheme[selectedColor],
       colorScheme: ColorScheme.fromSeed(
         seedColor: _colorTheme[selectedColor],
         brightness: brightness,
       ),
       appBarTheme: AppBarTheme(
-        elevation: 2,
-        shadowColor: _colorTheme[selectedColor],
+        backgroundColor: _colorTheme[selectedColor],
+        elevation: 10,
+        shadowColor: Colors.black,
       )
     );
   }
