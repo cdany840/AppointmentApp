@@ -1,7 +1,9 @@
+import 'package:appointment_app/presentation/screens/business/business_screen.dart';
+import 'package:appointment_app/presentation/screens/home/home_screen.dart';
 import 'package:appointment_app/presentation/screens/login/forgot_pass_screen.dart';
 import 'package:appointment_app/presentation/screens/login/login_screen.dart';
 import 'package:appointment_app/presentation/screens/login/register_screen.dart';
-import 'package:appointment_app/test.dart';
+import 'package:appointment_app/presentation/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> getRoutes(){
@@ -10,5 +12,7 @@ Map<String, WidgetBuilder> getRoutes(){
     '/register' : (BuildContext context) => const RegisterScreen(),
     '/home' : (BuildContext context) => const HomeScreen(),
     '/forgot' : (BuildContext context) => const ForgotPassScreen(),
+    '/profile' : (BuildContext context) => const ProfileScreen(),
+    '/business' : (BuildContext context) => const BusinessScreen(),
   };
 }

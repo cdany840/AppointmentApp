@@ -1,4 +1,5 @@
 import 'package:appointment_app/config/helpers/login/email_auth.dart';
+import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:appointment_app/presentation/widgets/custom/toast.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,7 @@ class LoginForm extends StatelessWidget {
                     WidgetToast.show('Empty User');
                   } else {
                       if ( await emailAuth.validateUser(emailUser: emailController.text, passUser: passController.text) ) {
+                        Preferences.prefsSession.setBool('session', true); // ? Debería guardar sessión.
                         Navigator.pushNamed(context, '/register'); 
                       } else {
                         WidgetToast.show('Credentials Invalidate');
