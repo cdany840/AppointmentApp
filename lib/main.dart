@@ -3,6 +3,7 @@ import 'package:appointment_app/infrastructure/routes.dart';
 import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
 import 'package:appointment_app/presentation/screens/home/home_screen.dart';
+import 'package:appointment_app/presentation/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         title: 'AppointmentApp',
         theme: AppTheme( selectedColor: 2, fontFamily: 'Agbalumo' ).theme( Brightness.light ),
         darkTheme: AppTheme( selectedColor: 2 ).theme( Brightness.dark ),
-        home: const HomeScreen(),
+        home: const LoginScreen(),
         // home: Preferences.prefsSession.getBool('session') ?? false
         //         ? const HomeScreen() // * True
         //         : const LoginScreen(), // * False

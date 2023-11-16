@@ -12,7 +12,7 @@ class ProviderDropdown extends ChangeNotifier {
 }
 
 class ProviderInputTime extends ChangeNotifier {
-  TimeOfDay _selectedTime = const TimeOfDay(hour: 0, minute: 10);
+  TimeOfDay _selectedTime = const TimeOfDay( hour: 0, minute: 10 );
 
   TimeOfDay get selectedTime => _selectedTime;
 

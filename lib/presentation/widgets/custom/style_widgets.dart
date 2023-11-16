@@ -43,10 +43,11 @@ class StyleTextField extends StatelessWidget {
 
 // * Form Style ----------------------------------
 
-InputDecoration styleInputForm(String label, String? hint) {
+InputDecoration styleInputForm(String label, String? hint, IconData? icon) {
   return InputDecoration(
     labelText: label,
     hintText: hint,
+    icon: Icon(icon),
     labelStyle: const TextStyle(color: Color.fromARGB(255, 51, 51, 51)),
     enabledBorder: const OutlineInputBorder(
       borderSide: BorderSide(
@@ -67,6 +68,7 @@ class StyleTextFormField extends StatelessWidget {
     this.hintText,
     required this.labelText,
     required this.controller,
+    this.icon,
     this.keyboardType,
     this.inputFormatters,
     this.validator,
@@ -76,6 +78,7 @@ class StyleTextFormField extends StatelessWidget {
   final String? hintText;
   final String labelText;
   final int? maxLines;
+  final IconData? icon;
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
@@ -90,7 +93,7 @@ class StyleTextFormField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: inputFormatters,
       validator: validator,
-      decoration: styleInputForm(labelText, hintText)
+      decoration: styleInputForm(labelText, hintText, icon)
     );
   }
 }
@@ -102,6 +105,7 @@ class StyleDropdownButtonFormField extends StatelessWidget {
     required this.labelText,
     required this.hintText,
     required this.onChange,
+    this.icon,
     this.validator,
     this.value,
   });
@@ -109,6 +113,7 @@ class StyleDropdownButtonFormField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final String? value;
+  final IconData? icon;
   final List<String> items;
   final String? Function(String?)? validator;
   final ValueChanged<String?> onChange;
@@ -120,7 +125,7 @@ class StyleDropdownButtonFormField extends StatelessWidget {
       isExpanded: true,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: styleInputForm(labelText, hintText),
+      decoration: styleInputForm(labelText, hintText, icon),
       items: items.map((String items) { 
         return DropdownMenuItem( 
           value: items, 

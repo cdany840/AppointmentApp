@@ -34,8 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
               emailController: userCont,
               passController: passCont,
             ),
-          ),
-          
+          ),          
           const LoginIconsButtons(
             color: Color.fromARGB(255, 51, 51, 51),
           ),
