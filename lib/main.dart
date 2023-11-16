@@ -35,12 +35,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProviderDropdown(),)
+        ChangeNotifierProvider( create: (_) => ProviderDropdown() ),
+        ChangeNotifierProvider( create: (_) => ProviderInputTime() )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: getRoutes(),
-        title: 'AppointmentAoo',
+        title: 'AppointmentApp',
         theme: AppTheme( selectedColor: 2, fontFamily: 'Agbalumo' ).theme( Brightness.light ),
         darkTheme: AppTheme( selectedColor: 2 ).theme( Brightness.dark ),
         home: const HomeScreen(),

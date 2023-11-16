@@ -33,7 +33,16 @@ class CreateDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/business');
             },
-          )
+          ),
+          ListTile(
+            leading: const Icon(FontAwesomeIcons.rectangleList),
+            trailing: const Icon(Icons.chevron_right),
+            title: const Text('See Services'),
+            subtitle: const Text('Add new'),
+            onTap: () {
+              Navigator.pushNamed(context, '/services');
+            },
+          ),
         ],
       ),
     );

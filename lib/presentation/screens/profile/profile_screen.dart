@@ -1,5 +1,6 @@
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
+import 'package:appointment_app/presentation/widgets/shared/date_input.dart';
 import 'package:flutter/material.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController contSurnames = TextEditingController();
   TextEditingController contBirthday = TextEditingController();
   TextEditingController contPhone = TextEditingController();
-  TextEditingController contGender = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   controller: contName,
                   validator: (val) {
                     if (!val!.isValidName || val.isEmpty) {
-                      return 'Please, enter valid name.';
+                      return 'Please, enter a valid name.';
                     }
                     return null;
                   },
@@ -56,31 +56,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   controller: contSurnames,
                   validator: (val) {
                     if (!val!.isValidName || val.isEmpty) {
-                      return 'Please, enter valid surnames.';
+                      return 'Please, enter a valid surnames.';
                     }
                     return null;
                   }                  
                 ),
                 const SizedBox( height: 16 ),
-                StyleTextFormField(
-                  // hintText: '20/20/2020',
-                  labelText: 'Birthday Date',
+                DateInputField(
                   controller: contBirthday,
+                  icon: Icons.calendar_today,
+                  label: 'Birthday Date',
+                  hint: '12/12/1212',
+                  onDateSelected: (DateTime selectedDate) {
+                    
+                  },
                   validator: (val) {
                     if (val!.isEmpty) {
-                      return 'Please, enter valid date.';
+                      return 'Please, enter a valid date.';
                     }
                     return null;
                   }
                 ),
                 const SizedBox( height: 16 ),
                 StyleTextFormField(
+                  keyboardType: TextInputType.phone,
                   hintText: '0000 - 000 - 000 - 000',
                   labelText: 'Phone Number',
                   controller: contPhone,
                   validator: (val) {
                     if (!val!.isValidPhone || val.isEmpty) {
-                      return 'Please, enter valid phone number.';
+                      return 'Please, enter a valid phone number.';
                     }
                     return null;
                   }

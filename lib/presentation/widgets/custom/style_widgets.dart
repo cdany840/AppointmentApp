@@ -70,10 +70,12 @@ class StyleTextFormField extends StatelessWidget {
     this.keyboardType,
     this.inputFormatters,
     this.validator,
+    this.maxLines
   });
 
   final String? hintText;
   final String labelText;
+  final int? maxLines;
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
@@ -82,6 +84,7 @@ class StyleTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       keyboardType: keyboardType,
       controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -117,10 +120,6 @@ class StyleDropdownButtonFormField extends StatelessWidget {
       isExpanded: true,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      style: const TextStyle(
-        color: Color.fromARGB(255, 51, 51, 51),
-        fontSize: 20
-      ),
       decoration: styleInputForm(labelText, hintText),
       items: items.map((String items) { 
         return DropdownMenuItem( 

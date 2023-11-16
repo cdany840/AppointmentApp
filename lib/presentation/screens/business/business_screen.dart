@@ -17,9 +17,10 @@ class _BusinessScreenState extends State<BusinessScreen> {
   final items = [ 'Aesthetics', 'Office', 'Mechanic', 'Restaurant', 'Dentist' ];
   TextEditingController contName = TextEditingController();
   TextEditingController contSurnames = TextEditingController();
-  TextEditingController contBirthday = TextEditingController();
+  TextEditingController contAddress = TextEditingController();
+  TextEditingController contEmail = TextEditingController();
+  TextEditingController contApartment = TextEditingController();
   TextEditingController contPhone = TextEditingController();
-  TextEditingController contGender = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
                   controller: contName,
                   validator: (val) {
                     if (!val!.isValidName || val.isEmpty) {
-                      return 'Please, enter valid business name.';
+                      return 'Please, enter a valid business name.';
                     }
                     return null;
                   },
@@ -56,7 +57,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
                   controller: contSurnames,
                   validator: (val) {
                     if (!val!.isValidName || val.isEmpty) {
-                      return 'Please, enter valid brand name.';
+                      return 'Please, enter a valid brand name.';
                     }
                     return null;
                   }                  
@@ -65,10 +66,10 @@ class _BusinessScreenState extends State<BusinessScreen> {
                 StyleTextFormField(
                   hintText: 'Presa Falcón 100',
                   labelText: 'Business Address',
-                  controller: contBirthday,
+                  controller: contAddress,
                   validator: (val) {
-                    if (val!.isValidAddress && val.isEmpty) {
-                      return 'Please, enter valid business address.';
+                    if (!val!.isValidAddress || val.isEmpty) {
+                      return 'Please, enter a valid business address.';
                     }
                     return null;
                   }
@@ -77,34 +78,36 @@ class _BusinessScreenState extends State<BusinessScreen> {
                 StyleTextFormField(
                   hintText: '(Optional)',
                   labelText: 'Apartment / Office',
-                  controller: contPhone,
+                  controller: contApartment,
                   validator: (val) {
-                    if (!val!.isValidAddress) {
-                      return 'Please, enter valid apartment / office.';
+                    if (!val!.isValidApartment) {
+                      return 'Please, enter a valid apartment / office.';
                     }
                     return null;
                   }
                 ),
                 const SizedBox( height: 16 ),
                 StyleTextFormField(
+                  keyboardType: TextInputType.phone,
                   hintText: '0000 - 000 - 000 - 000',
                   labelText: 'Business Phone Number',
                   controller: contPhone,
                   validator: (val) {
                     if (!val!.isValidPhone || val.isEmpty) {
-                      return 'Please, enter valid phone number.';
+                      return 'Please, enter a valid phone number.';
                     }
                     return null;
                   }
                 ),
                 const SizedBox( height: 16 ),
                 StyleTextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   hintText: 'example@email.com',
                   labelText: 'Business email',
-                  controller: contBirthday,
+                  controller: contEmail,
                   validator: (val) {
-                    if (val!.isEmpty) {
-                      return 'Please, enter valid email.';
+                    if (!val!.isValidEmail || val.isEmpty) {
+                      return 'Please, enter a valid email.';
                     }
                     return null;
                   }

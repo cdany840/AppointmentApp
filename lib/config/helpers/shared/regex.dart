@@ -3,7 +3,7 @@
 extension Redex on String {
   
   bool get isValidEmail {
-    RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
     return emailRegex.hasMatch(this);
   }
 
@@ -23,7 +23,22 @@ extension Redex on String {
   }
 
   bool get isValidAddress{
-    RegExp addressRegex = RegExp(r'^\d*\s*(?:[A-Za-z]+\s*\d*|[A-Za-z]+)$');
+    RegExp addressRegex = RegExp(r'^(?:\d+\s)?[A-Za-z\s]+\s\d+$');
     return addressRegex.hasMatch(this);
+  }
+
+  bool get isValidPrice{
+    RegExp priceRegex = RegExp(r'^\d+([.,]\d{1,2})?$');
+    return priceRegex.hasMatch(this);
+  }
+
+  bool get isValidHour{
+    RegExp priceRegex = RegExp(r'^(0[0-9]|09):([1-5][0-9])$');
+    return priceRegex.hasMatch(this);
+  }
+
+  bool get isValidApartment{
+    RegExp apartmentRegex = RegExp(r'^\d*\s*(?:[A-Za-z]+\s*\d*|[A-Za-z]+)$');
+    return apartmentRegex.hasMatch(this);
   }
 }

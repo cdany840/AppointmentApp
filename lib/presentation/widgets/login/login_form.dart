@@ -1,7 +1,7 @@
 import 'package:appointment_app/config/helpers/login/email_auth.dart';
 import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
-import 'package:appointment_app/presentation/widgets/custom/toast.dart';
+import 'package:appointment_app/presentation/widgets/shared/toast.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
