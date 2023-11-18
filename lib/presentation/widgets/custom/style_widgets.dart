@@ -69,6 +69,7 @@ class StyleTextFormField extends StatelessWidget {
     required this.labelText,
     required this.controller,
     this.icon,
+    this.obscureText,
     this.keyboardType,
     this.inputFormatters,
     this.validator,
@@ -78,6 +79,7 @@ class StyleTextFormField extends StatelessWidget {
   final String? hintText;
   final String labelText;
   final int? maxLines;
+  final bool? obscureText;
   final IconData? icon;
   final TextEditingController controller;
   final TextInputType? keyboardType;
@@ -87,9 +89,10 @@ class StyleTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: maxLines,
+      maxLines: maxLines ?? 1,
       keyboardType: keyboardType,
       controller: controller,
+      obscureText: obscureText ?? false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: inputFormatters,
       validator: validator,

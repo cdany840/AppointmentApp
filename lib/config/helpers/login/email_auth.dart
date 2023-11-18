@@ -13,6 +13,14 @@ class EmailAuth {
     }
   }
 
+  Future<void> sendEmailVerification() async {
+    User? user = _auth.currentUser;
+
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+    }
+  }
+
   Future<bool> validateUser({ required String emailUser, required String passUser }) async {
     try {
       final credential = await _auth.signInWithEmailAndPassword(email: emailUser, password: passUser);

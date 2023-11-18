@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:appointment_app/config/helpers/login/auth_status.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
+import 'package:appointment_app/presentation/widgets/shared/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -71,8 +70,14 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 StyleElevatedButton(
                   text: 'Reset',
                   onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      resetPassword(email: _emailController.text);
+                    try {
+                      if (_formKey.currentState!.validate()) {
+                        resetPassword(email: _emailController.text);
+                      }
+                      WidgetToast.show('Email Sent to ${_emailController.text}');
+                      Navigator.pop(context);
+                    } catch (e) {
+                      WidgetToast.show('The email is not registered');
                     }
                   },
                 ),

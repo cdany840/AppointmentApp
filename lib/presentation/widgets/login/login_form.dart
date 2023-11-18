@@ -50,6 +50,7 @@ class LoginForm extends StatelessWidget {
               labelText: 'Password',
               hintText: 'T0Rn74\$',
               icon: Icons.lock,
+              obscureText: true,
               controller: passController,
               validator: (val) {
                 if (!val!.isValidPassword || val.isEmpty) {

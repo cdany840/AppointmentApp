@@ -18,6 +18,7 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final EmailAuth emailAuth = EmailAuth();
     final _formKey = GlobalKey<FormState>();
+    bool pressButton = false;
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -48,6 +49,7 @@ class RegisterForm extends StatelessWidget {
               StyleTextFormField(
                 labelText: 'Password',
                 hintText: 'T0Rn74\$',
+                obscureText: true,
                 icon: Icons.lock,
                 controller: passController,
                 validator: (val) {
@@ -66,11 +68,32 @@ class RegisterForm extends StatelessWidget {
                   final String pass = passController.text;
                   emailAuth.createUser(emailUser: email, passUser: pass);
                   WidgetToast.show('Verify your email');
-                  Future.delayed(const Duration(seconds: 1));
-                  Navigator.of(context).pop();
-                }                
+                }
               },
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () async {
+                    if ( pressButton ) {
+                      await emailAuth.sendEmailVerification();
+                      WidgetToast.show('Email Sent');
+                    } else {
+                      WidgetToast.show('Wait a few minutes');
+                      Future.delayed(const Duration(minutes: 5), () => pressButton = !pressButton);
+                    }
+                  },
+                  child: const Text('Forward Email', style: TextStyle(color: Color.fromARGB(255, 245, 245, 245)),),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  child: const Text('Login', style: TextStyle(color: Color.fromARGB(255, 245, 245, 245)),),
+                ),
+              ],
+            ),            
           ],
         ),
       ),
