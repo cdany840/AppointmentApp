@@ -1,3 +1,6 @@
+import 'package:appointment_app/config/helpers/login/auth_github.dart';
+import 'package:appointment_app/config/helpers/login/auth_google.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,14 +23,25 @@ class LoginIconsButtons extends StatelessWidget {
           customColor: color,
         ),
         StyleIcons(
-          onPressed: () {
-            
+          onPressed: () async {
+            try{
+              UserCredential userCredential = await auServiceGH().signInWithGitHub();
+              if(context.mounted){
+                Navigator.pushNamed(context, '/home', arguments: {'data': userCredential.user!.displayName});
+              }
+            }catch  (e){
+              print("Erroristoooooooooooooo" + e.toString());
+            }
           },
           icon: FontAwesomeIcons.github,
           customColor: color,
         ),
         StyleIcons(
           onPressed: () async {
+            var userCredential = await auServiceG().signInWithGoogle();
+            if(userCredential != null){
+              Navigator.pushNamed(context, '/home', arguments: {'data': userCredential.user.displayName});
+            }
             // if ( await googleAuth.signInWithGoogle() ) {
             //   Navigator.pushNamed(context, '/home', arguments: {'data': googleAuth.user});
             // }
