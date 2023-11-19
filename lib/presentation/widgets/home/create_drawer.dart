@@ -1,20 +1,37 @@
+import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:appointment_app/infrastructure/models/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CreateDrawer extends StatelessWidget {
+class CreateDrawer extends StatefulWidget {
   const CreateDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<CreateDrawer> createState() => _CreateDrawerState();
+}
+
+class _CreateDrawerState extends State<CreateDrawer> {
+
+  ServicesFirebase servicesFirebase = ServicesFirebase( collection: 'profile' );
+  ProfileModel profileModel = ProfileModel();  
+
+  @override
+  void initState() {
+    servicesFirebase.getOneData( ServicesFirebase.uid ).then((value) => profileModel = value!);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {    
     return Drawer(
       child: ListView(
         children: [
-          const UserAccountsDrawerHeader(
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage('https://i.pravatar.cc/333'),
+          UserAccountsDrawerHeader(
+            currentAccountPicture: const CircleAvatar(
+              backgroundImage: NetworkImage('https://i.pravatar.cc/301'),
             ),
-            accountName: Text('Name User'), 
-            accountEmail: Text('user_email@gmail.com')
+            accountName: Text(profileModel.name!), 
+            accountEmail: Text(profileModel.surnames!)
           ),
           ListTile(
             leading: const Icon(FontAwesomeIcons.addressCard),

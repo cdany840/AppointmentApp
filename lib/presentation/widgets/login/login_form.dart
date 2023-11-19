@@ -65,7 +65,7 @@ class LoginForm extends StatelessWidget {
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   if ( await emailAuth.validateUser(emailUser: emailController.text, passUser: passController.text) ) {
-                    Preferences.prefsSession.setBool('session', true); // ? Debería guardar sessión.
+                    // Preferences.prefsSession.setBool('session', true); // ? Debería guardar sessión.
                     Navigator.pushNamed(context, '/home'); 
                   } else {
                     WidgetToast.show('Credentials Invalidate');

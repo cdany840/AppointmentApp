@@ -1,8 +1,4 @@
-import 'package:appointment_app/config/helpers/business/services_firebase.dart';
-import 'package:appointment_app/presentation/providers/form/form_provider.dart';
-import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:appointment_app/config/helpers/shared/regex.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ServicesScreen extends StatefulWidget {
@@ -16,7 +12,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ServicesFirebase firebase = ServicesFirebase();
 
     return Scaffold(
       appBar: AppBar(

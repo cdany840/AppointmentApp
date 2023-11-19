@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'package:appointment_app/presentation/providers/form/form_provider.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class AddService extends StatefulWidget {
   const AddService({super.key});
@@ -10,9 +14,8 @@ class AddService extends StatefulWidget {
 }
 
 class _AddServiceState extends State<AddService> {
-  final _formKey = GlobalKey<FormState>();
-  String? dropdownValue;
-  final items = [ 'Aesthetics', 'Office', 'Mechanic', 'Restaurant', 'Dentist' ];
+  final _formKey = GlobalKey<FormState>();  
+  File? image;
   TextEditingController contName = TextEditingController();
   TextEditingController contDescription = TextEditingController();
   TextEditingController contDuration  = TextEditingController();
@@ -20,6 +23,16 @@ class _AddServiceState extends State<AddService> {
 
   @override
   Widget build(BuildContext context) {
+    final inputImageProvider = context.watch<ProviderInputImage>();
+    Future<void> pickImage(ImageSource source) async {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: source);
+      if (pickedFile != null) {
+        inputImageProvider.selectedImage = File(pickedFile.path);
+        image = inputImageProvider.selectedImage;
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Business'),
@@ -82,15 +95,14 @@ class _AddServiceState extends State<AddService> {
                     }
                     return null;
                   }
-                ),                
-                const SizedBox( height: 16 ),
+                ),
+                const SizedBox( height: 16 ),                
                 StyleElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+                    if (_formKey.currentState!.validate()) {                      
+
                     }
+                    _formKey.currentState?.reset();
                   },
                   text: 'Save'
                 ),

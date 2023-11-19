@@ -45,11 +45,9 @@ class MyApp extends StatelessWidget {
         title: 'AppointmentApp',
         theme: AppTheme( selectedColor: 2, fontFamily: 'Agbalumo' ).theme( Brightness.light ),
         darkTheme: AppTheme( selectedColor: 2 ).theme( Brightness.dark ),
-        // home: const HomeScreen(),
-        home: const LoginScreen(),
-        // home: Preferences.prefsSession.getBool('session') ?? false
-        //         ? const HomeScreen() // * True
-        //         : const LoginScreen(), // * False
+        home: Preferences.prefsSession.getBool('session') ?? false
+                ? const HomeScreen() // * True
+                : const LoginScreen(), // * False
       ),
     );
   }

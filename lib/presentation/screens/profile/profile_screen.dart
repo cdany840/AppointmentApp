@@ -1,8 +1,12 @@
+import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:appointment_app/infrastructure/models/profile_model.dart';
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:appointment_app/presentation/widgets/shared/date_input.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -14,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  ServicesFirebase servicesFirebase = ServicesFirebase( collection: 'profile' );
   String? dropdownValue;
   final items = [ 'M', 'F', 'B' ];
   TextEditingController contName = TextEditingController();
@@ -24,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final dropDownProvider = context.watch<ProviderDropdown>();
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -109,11 +115,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const SizedBox( height: 16 ),
                 StyleElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
+                  onPressed: () async {
+                    ProfileModel profile = ProfileModel(
+                      idUser: ServicesFirebase.uid,
+                      name: contName.text,
+                      surnames: contSurnames.text,
+                      phoneNumber: int.parse(contPhone.text),
+                      birthdayDate: DateFormat("yyyy-dd-mm").parseLoose(contBirthday.text),
+                      gender: dropdownValue,
+                    );
+                    if (_formKey.currentState!.validate()) {                      
+                      await servicesFirebase.insService(
+                        profile.toJson()
                       );
+                      _formKey.currentState?.reset();
                     }
                   },
                   text: 'Save'

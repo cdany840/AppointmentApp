@@ -38,6 +38,7 @@ dependencies:
   fluttertoast: ^8.2.3
   font_awesome_flutter: ^10.6.0
   google_sign_in: ^6.1.6
+  image_picker: ^1.0.4
   intl: ^0.18.1
   lottie: ^2.7.0
   path_provider: ^2.1.1
@@ -102,11 +103,10 @@ flutter:
     - family: Agbalumo
       fonts:
         - asset: assets/fonts/Agbalumo/Agbalumo-Regular.ttf
-
-  # fonts:
-  #   - family: Montserrat
-  #     fonts:
-  #       - asset: fonts/Montserrat-Regular.ttf
+    # fonts:
+    #   - family: Montserrat
+    #     fonts:
+    #       - asset: fonts/Montserrat-Regular.ttf
     # To add assets to your application, add an assets section, like this:
     # assets:
     #   - images/a_dot_burr.jpeg
