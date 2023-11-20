@@ -32,7 +32,7 @@ class DateInputField extends StatelessWidget {
     this.onDateSelected,
     this.validator,
     dateDefault
-  }): firstDate = dateDefault ?? DateTime(DateTime.now().year -18, 1, 1);
+  }): firstDate = dateDefault ?? DateTime(DateTime.now().year - 33, 1, 1);
 
   final TextEditingController controller;
   final String label;
@@ -55,10 +55,10 @@ class DateInputField extends StatelessWidget {
           context: context, 
           initialDate: firstDate!,
           firstDate: firstDate!,
-          lastDate: DateTime(2100),
+          lastDate: DateTime(DateTime.now().year - 18, 12, 31),
         );
         if (pickedDate != null) {
-          String formattedDate = DateFormat('yy-MM-dd').format(pickedDate);
+          String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
           controller.text = formattedDate;
           if (onDateSelected != null) {
             onDateSelected!(pickedDate);

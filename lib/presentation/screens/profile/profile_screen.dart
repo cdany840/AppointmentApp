@@ -1,9 +1,10 @@
 import 'package:appointment_app/config/helpers/business/services_firebase.dart';
 import 'package:appointment_app/infrastructure/models/profile_model.dart';
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
+import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:appointment_app/presentation/widgets/shared/date_input.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:appointment_app/presentation/widgets/shared/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
 import 'package:intl/intl.dart';
@@ -25,12 +26,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController contSurnames = TextEditingController();
   TextEditingController contBirthday = TextEditingController();
   TextEditingController contPhone = TextEditingController();
+  void resetForm() {
+    dropdownValue = 'M';
+    contName.clear();
+    contSurnames.clear();
+    contBirthday.clear();
+    contPhone.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final dropDownProvider = context.watch<ProviderDropdown>();
-    
-
+    final dropDownProvider = context.watch<ProviderDropdown>();    
+    final selectImage = context.watch<ImageInputProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -114,21 +121,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                 ),
                 const SizedBox( height: 16 ),
+                const ImageInput(),
+                const SizedBox( height: 16 ),
                 StyleElevatedButton(
                   onPressed: () async {
                     ProfileModel profile = ProfileModel(
                       idUser: ServicesFirebase.uid,
                       name: contName.text,
                       surnames: contSurnames.text,
+                      image: selectImage.imageUrl,
                       phoneNumber: int.parse(contPhone.text),
-                      birthdayDate: DateFormat("yyyy-dd-mm").parseLoose(contBirthday.text),
+                      birthdayDate: DateFormat("yyyy-MM-dd").parseLoose(contBirthday.text),
                       gender: dropdownValue,
                     );
                     if (_formKey.currentState!.validate()) {                      
                       await servicesFirebase.insService(
                         profile.toJson()
                       );
-                      _formKey.currentState?.reset();
+                      resetForm();
+                      selectImage.resetImage();
+                      Navigator.pushNamed(context, '/home');
                     }
                   },
                   text: 'Save'

@@ -1,10 +1,7 @@
 import 'dart:io';
-import 'package:appointment_app/presentation/providers/form/form_provider.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 class AddService extends StatefulWidget {
   const AddService({super.key});
@@ -23,15 +20,6 @@ class _AddServiceState extends State<AddService> {
 
   @override
   Widget build(BuildContext context) {
-    final inputImageProvider = context.watch<ProviderInputImage>();
-    Future<void> pickImage(ImageSource source) async {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: source);
-      if (pickedFile != null) {
-        inputImageProvider.selectedImage = File(pickedFile.path);
-        image = inputImageProvider.selectedImage;
-      }
-    }
 
     return Scaffold(
       appBar: AppBar(

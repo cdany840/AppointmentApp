@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ProviderDropdown extends ChangeNotifier {
@@ -19,17 +18,6 @@ class ProviderInputTime extends ChangeNotifier {
 
   set selectedTime(TimeOfDay time) {
     _selectedTime = time;
-    notifyListeners();
-  }
-}
-
-class ProviderInputImage extends ChangeNotifier {
-  File _image = File('');
-
-  File get selectedImage => _image;
-
-  set selectedImage(File image) {
-    _image = image;
     notifyListeners();
   }
 }

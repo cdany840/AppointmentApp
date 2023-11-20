@@ -1,6 +1,5 @@
 import 'package:appointment_app/config/helpers/login/email_auth.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
-import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:appointment_app/presentation/widgets/shared/toast.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +17,12 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final EmailAuth emailAuth = EmailAuth();
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(
           children: [
             const Text('Welcome', 
@@ -63,7 +62,7 @@ class LoginForm extends StatelessWidget {
             StyleElevatedButton( // ? Presentation/widgets/custom/style_widgets.dart
               text: 'Login',
               onPressed: () async {
-                if (_formKey.currentState!.validate()) {
+                if (formKey.currentState!.validate()) {
                   if ( await emailAuth.validateUser(emailUser: emailController.text, passUser: passController.text) ) {
                     // Preferences.prefsSession.setBool('session', true); // ? Debería guardar sessión.
                     Navigator.pushNamed(context, '/home'); 

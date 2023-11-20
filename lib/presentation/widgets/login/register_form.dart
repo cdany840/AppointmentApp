@@ -17,13 +17,13 @@ class RegisterForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final EmailAuth emailAuth = EmailAuth();
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     bool pressButton = false;
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(
           children: [
             const Text('Appointment', 
@@ -63,7 +63,7 @@ class RegisterForm extends StatelessWidget {
             StyleElevatedButton( // ? Presentation/widgets/custom/style_widgets.dart
               text: 'Register',
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (formKey.currentState!.validate()) {
                   final String email = emailController.text;
                   final String pass = passController.text;
                   emailAuth.createUser(emailUser: email, passUser: pass);

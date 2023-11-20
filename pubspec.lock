@@ -249,6 +249,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.8.1"
+  firebase_storage:
+    dependency: "direct main"
+    description:
+      name: firebase_storage
+      sha256: "2535c38b915d1fa1d2b1f3ee0d84b8a2de49c7f03887cbd74f92d5cd0960ba05"
+      url: "https://pub.dev"
+    source: hosted
+    version: "11.5.1"
+  firebase_storage_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_storage_platform_interface
+      sha256: c25b2a2d09bc8a93b32d99c712e11caa37aa218168a2a9629f3b0dc77a696e03
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.2"
+  firebase_storage_web:
+    dependency: transitive
+    description:
+      name: firebase_storage_web
+      sha256: "8ee35c3ba8507fa87341b81fadd8496b14f1045b0f996e8e76968f4850d0c8cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.13"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -270,6 +294,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.17"
+  flutter_riverpod:
+    dependency: "direct main"
+    description:
+      name: flutter_riverpod
+      sha256: "49b55e8a467229eedb801bd0864baa7f891c39cc00f790189ba8479e9ad0fa06"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -624,6 +656,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  riverpod:
+    dependency: transitive
+    description:
+      name: riverpod
+      sha256: "01fa385aa5d6db42fd602d8c400c28ae1c83d1fd6fbae1cbf0f4c78bac58d4b2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.6"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -701,6 +741,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  state_notifier:
+    dependency: transitive
+    description:
+      name: state_notifier
+      sha256: b8677376aa54f2d7c58280d5a007f9e8774f1968d1fb1c096adcb4792fba29bb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   stream_channel:
     dependency: transitive
     description:
