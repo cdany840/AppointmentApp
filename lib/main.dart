@@ -7,23 +7,73 @@ import 'package:appointment_app/presentation/screens/home/home_screen.dart';
 import 'package:appointment_app/presentation/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:math';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // * Config Firebase
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 // * End
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async{
+  await Firebase.initializeApp();
+  print("Handling a background message: ${message.messageId}");
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Preferences.configPrefs();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  await messaging.requestPermission();
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) { 
+    print("Mensaje recibido: ${message.notification?.title}");
+    _showNotification(message);
+  });
+  String? token = await messaging.getToken();
+  print("Token: $token");
+
   runApp(
     const MyApp()
 
   );  
 }
+
+FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+void _showNotification(RemoteMessage message) async{
+  var androidInitialization = const AndroidInitializationSettings('@mipmap/ic_launcher');
+  var initializationSettings = InitializationSettings(android: androidInitialization);
+  await _flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+    onDidReceiveNotificationResponse: (payload){}
+  );
+  const String channelID = 'high_importance_channel';
+  AndroidNotificationChannel channel = AndroidNotificationChannel(
+    channelID, 
+    'High Importance Notifications',
+    importance: Importance.max
+  );
+  AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+    channelID, 
+    'High Importance Notifications',
+    channelDescription: 'Channel description',
+    importance: Importance.high,
+    priority: Priority.high,
+    ticker: 'ticker'
+  );
+  NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
+  await _flutterLocalNotificationsPlugin.show(
+    0, 
+    message.notification?.title ?? 'Notificacion', 
+    message.notification?.body ?? 'Cuerpo del Mensaje', 
+    notificationDetails
+  );
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

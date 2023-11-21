@@ -69,6 +69,25 @@ class _CreateDrawerState extends State<CreateDrawer> {
               Navigator.pushNamed(context, '/services');
             },
           ),
+          ListTile(
+            leading: const Icon(FontAwesomeIcons.rectangleList),
+            trailing: const Icon(Icons.chevron_right),
+            title: const Text('Interesting topics'),
+            subtitle: const Text('Subscribe'),
+            onTap: () {
+              Navigator.pushNamed(context, '/subs');
+            },
+          ),
+          ListTile(
+            leading: const Icon(FontAwesomeIcons.rectangleList),
+            trailing: const Icon(Icons.chevron_right),
+            title: const Text('Logout'),
+            subtitle: const Text('Cerrar sesion'),
+            onTap: () {
+              Preferences.prefsSession.setBool('session', false);
+              Navigator.pushNamed(context, '/login');
+            },
+          ),
         ],
       ),
     );
