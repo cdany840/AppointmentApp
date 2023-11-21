@@ -21,6 +21,7 @@ class ImageInputProvider extends ChangeNotifier {
 
   Future<void> getImage(ImageSource source) async {
     final pickedFile = await picker.pickImage(source: source);
+
     if (pickedFile != null) {
       _imageFile = File(pickedFile.path);
       _image = FileImage(_imageFile!);

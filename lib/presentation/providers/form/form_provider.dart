@@ -21,3 +21,14 @@ class ProviderInputTime extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class ProviderScreenProfile extends ChangeNotifier {
+  bool _screen = true;
+
+  bool get screen => _screen;
+
+  set screen(bool value) {
+    _screen = value;
+    notifyListeners();
+  }
+}

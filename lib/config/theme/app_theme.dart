@@ -45,6 +45,17 @@ class AppTheme {
         backgroundColor: _colorTheme[selectedColor],
         elevation: 10,
         shadowColor: Colors.black,
+        iconTheme: const IconThemeData(
+          color: Colors.black
+        )
+      ),
+      textTheme: TextTheme(
+        bodySmall: TextStyle(color: _colorTheme[selectedColor]),
+        bodyMedium: TextStyle(color: _colorTheme[selectedColor]),
+        bodyLarge: TextStyle(color: _colorTheme[selectedColor]),
+        headlineSmall: const TextStyle(fontSize: 18.0),
+        headlineMedium: const TextStyle(fontSize: 24.0),
+        headlineLarge: const TextStyle(fontSize: 28.0),
       )
     );
   }

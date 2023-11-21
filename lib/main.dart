@@ -14,7 +14,6 @@ import 'firebase_options.dart';
 // * End
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Preferences.configPrefs();
   await Firebase.initializeApp(
@@ -24,8 +23,7 @@ void main() async {
   runApp(
     const MyApp()
 
-  );
-  
+  );  
 }
 
 class MyApp extends StatelessWidget {
@@ -38,17 +36,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider( create: (_) => ProviderDropdown() ),
         ChangeNotifierProvider( create: (_) => ProviderInputTime() ),
         ChangeNotifierProvider( create: (_) => ImageInputProvider() ),
+        ChangeNotifierProvider( create: (_) => ProviderScreenProfile() ),
 
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: getRoutes(),
         title: 'AppointmentApp',
-        theme: AppTheme( selectedColor: 2, fontFamily: 'Agbalumo' ).theme( Brightness.light ),
+        theme: AppTheme( selectedColor: 2, fontFamily: 'Lato' ).theme( Brightness.light ),
         darkTheme: AppTheme( selectedColor: 2 ).theme( Brightness.dark ),
+        themeMode: MediaQuery.of(context).platformBrightness == Brightness.dark
+          ? ThemeMode.dark // ? Should change the theme according to the device theme.
+          : ThemeMode.light,
         home: Preferences.prefsSession.getBool('session') ?? false
-                ? const HomeScreen() // * True
-                : const LoginScreen(), // * False
+          ? const HomeScreen() // * True
+          : const LoginScreen(), // * False
       ),
     );
   }

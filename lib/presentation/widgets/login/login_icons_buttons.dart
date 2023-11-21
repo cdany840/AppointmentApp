@@ -1,3 +1,4 @@
+import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,16 +22,14 @@ class LoginIconsButtons extends StatelessWidget {
         ),
         StyleIcons(
           onPressed: () {
-            
+            Preferences.prefsSession.setString('session', 'Github'); // ? Debería guardar tipo sessión.
           },
           icon: FontAwesomeIcons.github,
           customColor: color,
         ),
         StyleIcons(
           onPressed: () async {
-            // if ( await googleAuth.signInWithGoogle() ) {
-            //   Navigator.pushNamed(context, '/home', arguments: {'data': googleAuth.user});
-            // }
+            Preferences.prefsSession.setString('session', 'Google'); // ? Debería guardar tipo sessión.
           },
           icon: FontAwesomeIcons.google,
           customColor: color,
