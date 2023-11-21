@@ -12,8 +12,6 @@ class LoginIconsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // GoogleAuth googleAuth = GoogleAuth();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -27,14 +25,13 @@ class LoginIconsButtons extends StatelessWidget {
         StyleIcons(
           onPressed: () async {
             try{
-              UserCredential userCredential = await auServiceGH().signInWithGitHub();
+              UserCredential userCredential = await AuServiceGH().signInWithGitHub();
               if(context.mounted){
-                Preferences.prefsSession.setString('session', 'Github'); // ? Debería guardar tipo sessión.
-                Navigator.pushNamed(context, '/home', arguments: {'data': userCredential.user!.displayName});
+                Preferences.prefsLogin.setString('login', 'Github'); // ? Debería guardar tipo sessión.
+                Navigator.pushNamed(context, '/home');
               }
             }catch  (e){
               WidgetToast.show('Error login con GitHub');
-              print("Error login con GitHub: " + e.toString());
             }
           },
           icon: FontAwesomeIcons.github,
@@ -42,10 +39,10 @@ class LoginIconsButtons extends StatelessWidget {
         ),
         StyleIcons(
            onPressed: () async {
-            var userCredential = await auServiceG().signInWithGoogle();
+            var userCredential = await AuServiceG().signInWithGoogle();
             if(userCredential != null){
-              Preferences.prefsSession.setString('session', 'Google'); // ? Debería guardar tipo sessión.
-              Navigator.pushNamed(context, '/home', arguments: {'data': userCredential.user.displayName});
+              Preferences.prefsLogin.setString('login', 'Google'); // ? Debería guardar tipo sessión.
+              Navigator.pushNamed(context, '/home');
             }else{
               WidgetToast.show('Error login con Google');
             }

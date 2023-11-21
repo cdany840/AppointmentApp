@@ -1,5 +1,7 @@
 import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,6 +14,10 @@ class CreateDrawer extends StatefulWidget {
 
 class _CreateDrawerState extends State<CreateDrawer> {
   ServicesFirebase servicesFirebase = ServicesFirebase( collection: 'profile' );
+  final User? user = FirebaseAuth.instance.currentUser;
+  bool getLogin() {
+    return  Preferences.prefsLogin.getString('login') == 'Google' || Preferences.prefsLogin.getString('login') == 'Github';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +27,16 @@ class _CreateDrawerState extends State<CreateDrawer> {
           FutureBuilder(
             future: servicesFirebase.getOneData( ServicesFirebase.uid ),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData || getLogin()) {
                 return UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
                     backgroundImage: CachedNetworkImageProvider(
-                      snapshot.data!.image!,
+                      getLogin() ? user!.photoURL! : snapshot.data!.image!,
                       errorListener: (error) => const Icon(Icons.error),
                     )
                   ),
-                  accountName: Text(snapshot.data!.name!),
-                  accountEmail: Text(snapshot.data!.surnames!)
+                  accountName: Text( getLogin() ? user!.displayName! : snapshot.data!.name!),
+                  accountEmail: Text( getLogin() ? user!.email! : snapshot.data!.surnames!)
                 );  
               }
               return const Text('Loading Data...');

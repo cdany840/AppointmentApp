@@ -19,7 +19,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(
     const MyApp()
 
@@ -36,8 +35,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider( create: (_) => ProviderDropdown() ),
         ChangeNotifierProvider( create: (_) => ProviderInputTime() ),
         ChangeNotifierProvider( create: (_) => ImageInputProvider() ),
-        ChangeNotifierProvider( create: (_) => ProviderScreenProfile() ),
-
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -50,9 +50,9 @@ class AppTheme {
         )
       ),
       textTheme: const TextTheme(
-        headlineSmall: const TextStyle(fontSize: 18.0),
-        headlineMedium: const TextStyle(fontSize: 24.0),
-        headlineLarge: const TextStyle(fontSize: 28.0),
+        headlineSmall: TextStyle(fontSize: 18.0),
+        headlineMedium: TextStyle(fontSize: 24.0),
+        headlineLarge: TextStyle(fontSize: 28.0),
       )
     );
   }
