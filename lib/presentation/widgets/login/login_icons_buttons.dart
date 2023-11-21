@@ -1,5 +1,7 @@
 import 'package:appointment_app/config/helpers/login/auth_github.dart';
 import 'package:appointment_app/config/helpers/login/auth_google.dart';
+import 'package:appointment_app/infrastructure/shared_preferences.dart';
+import 'package:appointment_app/presentation/widgets/shared/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,10 +29,12 @@ class LoginIconsButtons extends StatelessWidget {
             try{
               UserCredential userCredential = await auServiceGH().signInWithGitHub();
               if(context.mounted){
+                Preferences.prefsSession.setBool('session', true);
                 Navigator.pushNamed(context, '/home', arguments: {'data': userCredential.user!.displayName});
               }
             }catch  (e){
-              print("Erroristoooooooooooooo" + e.toString());
+              WidgetToast.show('Error login con GitHub');
+              print("Error login con GitHub: " + e.toString());
             }
           },
           icon: FontAwesomeIcons.github,
@@ -40,11 +44,11 @@ class LoginIconsButtons extends StatelessWidget {
           onPressed: () async {
             var userCredential = await auServiceG().signInWithGoogle();
             if(userCredential != null){
+              Preferences.prefsSession.setBool('session', true);
               Navigator.pushNamed(context, '/home', arguments: {'data': userCredential.user.displayName});
+            }else{
+              WidgetToast.show('Error login con Google');
             }
-            // if ( await googleAuth.signInWithGoogle() ) {
-            //   Navigator.pushNamed(context, '/home', arguments: {'data': googleAuth.user});
-            // }
           },
           icon: FontAwesomeIcons.google,
           customColor: color,

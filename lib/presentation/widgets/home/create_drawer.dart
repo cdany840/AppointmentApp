@@ -1,3 +1,4 @@
+import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -41,6 +42,25 @@ class CreateDrawer extends StatelessWidget {
             subtitle: const Text('Add new'),
             onTap: () {
               Navigator.pushNamed(context, '/services');
+            },
+          ),
+          ListTile(
+            leading: const Icon(FontAwesomeIcons.rectangleList),
+            trailing: const Icon(Icons.chevron_right),
+            title: const Text('Interesting topics'),
+            subtitle: const Text('Subscribe'),
+            onTap: () {
+              Navigator.pushNamed(context, '/subs');
+            },
+          ),
+          ListTile(
+            leading: const Icon(FontAwesomeIcons.rectangleList),
+            trailing: const Icon(Icons.chevron_right),
+            title: const Text('Logout'),
+            subtitle: const Text('Cerrar sesion'),
+            onTap: () {
+              Preferences.prefsSession.setBool('session', false);
+              Navigator.pushNamed(context, '/login');
             },
           ),
         ],
