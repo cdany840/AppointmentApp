@@ -1,4 +1,5 @@
 import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,7 +24,10 @@ class _CreateDrawerState extends State<CreateDrawer> {
               if (snapshot.hasData) {
                 return UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage: NetworkImage(snapshot.data!.image!),
+                    backgroundImage: CachedNetworkImageProvider(
+                      snapshot.data!.image!,
+                      errorListener: (error) => const Icon(Icons.error),
+                    )
                   ),
                   accountName: Text(snapshot.data!.name!),
                   accountEmail: Text(snapshot.data!.surnames!)

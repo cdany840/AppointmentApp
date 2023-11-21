@@ -49,10 +49,7 @@ class AppTheme {
           color: Colors.black
         )
       ),
-      textTheme: TextTheme(
-        bodySmall: TextStyle(color: _colorTheme[selectedColor]),
-        bodyMedium: TextStyle(color: _colorTheme[selectedColor]),
-        bodyLarge: TextStyle(color: _colorTheme[selectedColor]),
+      textTheme: const TextTheme(
         headlineSmall: const TextStyle(fontSize: 18.0),
         headlineMedium: const TextStyle(fontSize: 24.0),
         headlineLarge: const TextStyle(fontSize: 28.0),

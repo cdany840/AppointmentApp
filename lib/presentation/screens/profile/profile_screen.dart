@@ -1,5 +1,4 @@
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
-import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
 import 'package:appointment_app/presentation/widgets/profile/profile_form.dart';
 import 'package:appointment_app/presentation/widgets/profile/profile_view.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +15,23 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    final selectScren = context.watch<ProviderScreenProfile>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
         centerTitle: true,
         actions: [
-          Visibility(
-            visible: selectScren.screen,
-            child: IconButton(
-              onPressed: () => selectScren.screen = !selectScren.screen,
-              icon: const Icon(FontAwesomeIcons.penToSquare)
-            ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileForm( edit: true )),
+              );
+            },
+            icon: const Icon(FontAwesomeIcons.penToSquare)
           )
         ],
       ),
-      body: !selectScren.screen ? const ProfileForm(edit: true) : ProfileView(),
+      body: ProfileView(),
     );
   }
 }
