@@ -1,6 +1,10 @@
 import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:appointment_app/config/helpers/login/auth_github.dart';
+import 'package:appointment_app/config/helpers/login/auth_google.dart';
+import 'package:appointment_app/presentation/widgets/shared/toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginIconsButtons extends StatelessWidget {
   const LoginIconsButtons({super.key, this.color});
@@ -21,15 +25,30 @@ class LoginIconsButtons extends StatelessWidget {
           customColor: color,
         ),
         StyleIcons(
-          onPressed: () {
-            Preferences.prefsSession.setString('session', 'Github'); // ? Debería guardar tipo sessión.
+          onPressed: () async {
+            try{
+              UserCredential userCredential = await auServiceGH().signInWithGitHub();
+              if(context.mounted){
+                Preferences.prefsSession.setString('session', 'Github'); // ? Debería guardar tipo sessión.
+                Navigator.pushNamed(context, '/home', arguments: {'data': userCredential.user!.displayName});
+              }
+            }catch  (e){
+              WidgetToast.show('Error login con GitHub');
+              print("Error login con GitHub: " + e.toString());
+            }
           },
           icon: FontAwesomeIcons.github,
           customColor: color,
         ),
         StyleIcons(
-          onPressed: () async {
-            Preferences.prefsSession.setString('session', 'Google'); // ? Debería guardar tipo sessión.
+           onPressed: () async {
+            var userCredential = await auServiceG().signInWithGoogle();
+            if(userCredential != null){
+              Preferences.prefsSession.setString('session', 'Google'); // ? Debería guardar tipo sessión.
+              Navigator.pushNamed(context, '/home', arguments: {'data': userCredential.user.displayName});
+            }else{
+              WidgetToast.show('Error login con Google');
+            }
           },
           icon: FontAwesomeIcons.google,
           customColor: color,
