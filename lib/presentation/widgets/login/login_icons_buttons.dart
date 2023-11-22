@@ -28,6 +28,7 @@ class LoginIconsButtons extends StatelessWidget {
               UserCredential userCredential = await AuServiceGH().signInWithGitHub();
               if(context.mounted){
                 Preferences.prefsLogin.setString('login', 'Github'); // ? Debería guardar tipo sessión.
+                Preferences.prefsSession.setBool('session', true);
                 Navigator.pushNamed(context, '/home');
               }
             }catch  (e){
@@ -42,6 +43,7 @@ class LoginIconsButtons extends StatelessWidget {
             var userCredential = await AuServiceG().signInWithGoogle();
             if(userCredential != null){
               Preferences.prefsLogin.setString('login', 'Google'); // ? Debería guardar tipo sessión.
+              Preferences.prefsSession.setBool('session', true);
               Navigator.pushNamed(context, '/home');
             }else{
               WidgetToast.show('Error login con Google');

@@ -1,11 +1,15 @@
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
+import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
+import 'package:appointment_app/presentation/widgets/business/business_map.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
+import 'package:appointment_app/presentation/widgets/shared/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
 import 'package:provider/provider.dart';
 
 class BusinessScreen extends StatefulWidget {
-  const BusinessScreen({super.key});
+  const BusinessScreen({super.key, this.edit});
+  final bool? edit;
 
   @override
   State<BusinessScreen> createState() => _BusinessScreenState();
@@ -21,13 +25,25 @@ class _BusinessScreenState extends State<BusinessScreen> {
   TextEditingController contEmail = TextEditingController();
   TextEditingController contApartment = TextEditingController();
   TextEditingController contPhone = TextEditingController();
+  TextEditingController contLocation = TextEditingController();
+  void resetForm() {
+    dropdownValue = 'Aesthetics';
+    contName.clear();
+    contSurnames.clear();
+    contAddress.clear();
+    contEmail.clear();
+    contApartment.clear();
+    contPhone.clear();
+    contLocation.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
     final dropDownProvider = context.watch<ProviderDropdown>();
-
+    final selectImage = context.watch<ImageInputProvider>();
     return Scaffold(
       appBar: AppBar(
+        // title: !widget.edit ? const Text('Create Business') : const Text('Edit Business'),
         title: const Text('Business'),
         centerTitle: true,
       ),
@@ -130,12 +146,37 @@ class _BusinessScreenState extends State<BusinessScreen> {
                   },
                 ),
                 const SizedBox( height: 16 ),
+                StyleTextFormField(
+                  hintText: '0.000000, 0.000000',
+                  readOnly: true,
+                  labelText: 'Location',
+                  controller: contLocation,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'Please, select a location.';
+                    }
+                    return null;
+                  },
+                ),
+                StyleElevatedButton(
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const BusinessMap()),
+                    );
+                    contLocation.text = result.toString();
+                  },
+                  text: 'Select Location'
+                ),
+                const SizedBox( height: 16 ),
+                const ImageInput(),
+                const SizedBox( height: 16 ),
                 StyleElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+
+                      resetForm();
+                      selectImage.resetImage();
                     }
                   },
                   text: 'Save'

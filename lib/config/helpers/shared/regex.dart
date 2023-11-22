@@ -39,7 +39,8 @@ extension Redex on String {
   }
 
   bool get isValidApartment{
-    RegExp apartmentRegex = RegExp(r'^\d*\s*(?:[A-Za-z]+\s*\d*|[A-Za-z]+)$');
+    // RegExp apartmentRegex = RegExp(r'^\d*\s*(?:[A-Za-z]+\s*\d*|[A-Za-z]+)$');
+    RegExp apartmentRegex = RegExp(r'^\d*\s*(?:[A-Za-z]+\s*\d*|[A-Za-z]+)?$');
     return apartmentRegex.hasMatch(this);
   }
 }

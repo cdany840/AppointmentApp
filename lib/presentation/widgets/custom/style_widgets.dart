@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -70,6 +71,7 @@ class StyleTextFormField extends StatelessWidget {
     required this.controller,
     this.icon,
     this.obscureText,
+    this.readOnly,
     this.keyboardType,
     this.inputFormatters,
     this.validator,
@@ -80,6 +82,7 @@ class StyleTextFormField extends StatelessWidget {
   final String labelText;
   final int? maxLines;
   final bool? obscureText;
+  final bool? readOnly;
   final IconData? icon;
   final TextEditingController controller;
   final TextInputType? keyboardType;
@@ -89,6 +92,7 @@ class StyleTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly ?? false,
       maxLines: maxLines ?? 1,
       keyboardType: keyboardType,
       controller: controller,
@@ -161,6 +165,31 @@ class StyleElevatedButton extends StatelessWidget {
         )),
       ),
       child: Text(text)
+    );
+  }
+}
+
+class ContainerImage extends StatelessWidget {
+  const ContainerImage({
+    super.key,
+    required this.imageUrl,
+  });
+  final String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    double screen = MediaQuery.of(context).size.height;
+    return Container(
+      margin: const EdgeInsets.only( top: 20),
+      height: screen * 0.2,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: CachedNetworkImage(
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          imageUrl: imageUrl,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

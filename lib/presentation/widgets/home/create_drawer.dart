@@ -25,7 +25,7 @@ class _CreateDrawerState extends State<CreateDrawer> {
       child: ListView(
         children: [
           FutureBuilder(
-            future: servicesFirebase.getOneData( ServicesFirebase.uid ),
+            future: servicesFirebase.getDataProfile( ServicesFirebase.uid ),
             builder: (context, snapshot) {
               if (snapshot.hasData || getLogin()) {
                 return UserAccountsDrawerHeader(
@@ -42,15 +42,18 @@ class _CreateDrawerState extends State<CreateDrawer> {
               return const Text('Loading Data...');
             }
           ),
-          ListTile(
-            leading: const Icon(FontAwesomeIcons.addressCard),
-            trailing: const Icon(Icons.chevron_right),
-            title: const Text('Edit Profile'),
-            subtitle: const Text('User Data'),
-            onTap: () {
-              Navigator.pushNamed(context, '/profile');
-            },
-          ),
+          Visibility(
+            visible: !getLogin(),
+            child: ListTile(
+              leading: const Icon(FontAwesomeIcons.addressCard),
+              trailing: const Icon(Icons.chevron_right),
+              title: const Text('Edit Profile'),
+              subtitle: const Text('User Data'),
+              onTap: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+            ),
+          ),          
           ListTile(
             leading: const Icon(FontAwesomeIcons.businessTime),
             trailing: const Icon(Icons.chevron_right),

@@ -31,12 +31,10 @@ class ServicesFirebase {
     return _servicesCollection!.snapshots();
   }
 
-  Future<ProfileModel?> getOneData( String uid ) async {
+  Future<ProfileModel?> getDataProfile( String uid ) async {
     QuerySnapshot querySnapshot = await _servicesCollection!.where("iduser", isEqualTo: uid).get();
     try {
-
-      return ProfileModel.fromJson( querySnapshot.docs.first.data() as Map<String, dynamic> );
-    
+      return ProfileModel.fromJson( querySnapshot.docs.first.data() as Map<String, dynamic> );    
     } catch (error) {
       return null;
     }

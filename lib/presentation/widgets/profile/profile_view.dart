@@ -1,8 +1,7 @@
 import 'package:appointment_app/config/helpers/business/services_firebase.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({super.key});
@@ -14,7 +13,6 @@ class ProfileView extends StatelessWidget {
         "${phoneNumberString.substring(0, 3)}-${phoneNumberString.substring(3, 6)}-${phoneNumberString.substring(6)}";
     return formattedPhoneNumber;
   }
-
   int calculateAge(DateTime birthDate) {
     DateTime currentDate = DateTime.now();
     int age = currentDate.year - birthDate.year;
@@ -27,10 +25,8 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return FutureBuilder(
-      future: servicesFirebase.getOneData( ServicesFirebase.uid ),
+      future: servicesFirebase.getDataProfile( ServicesFirebase.uid ),
       builder: (context, snapshot) {
         final profile = snapshot.data;
         if (snapshot.hasData) {
@@ -38,17 +34,8 @@ class ProfileView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  margin: const EdgeInsets.only( top: 20),
-                  height: screenHeight * 0.2,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) => const CircularProgressIndicator(),
-                      imageUrl: profile!.image!,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                ContainerImage(
+                  imageUrl: profile!.image!
                 ),
                 const SizedBox( height: 20 ),
                 Text(

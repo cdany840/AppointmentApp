@@ -3,11 +3,11 @@ import 'package:appointment_app/infrastructure/routes.dart';
 import 'package:appointment_app/infrastructure/shared_preferences.dart';
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
 import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
+import 'package:appointment_app/presentation/providers/map/provider_map.dart';
 import 'package:appointment_app/presentation/screens/home/home_screen.dart';
 import 'package:appointment_app/presentation/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -18,7 +18,6 @@ import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async{
   await Firebase.initializeApp();
-  print("Handling a background message: ${message.messageId}");
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,11 +30,9 @@ void main() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   await messaging.requestPermission();
   FirebaseMessaging.onMessage.listen((RemoteMessage message) { 
-    print("Mensaje recibido: ${message.notification?.title}");
     _showNotification(message);
   });
-  String? token = await messaging.getToken();
-  print("Token: $token");
+  // ? String? token = await messaging.getToken();
 
   runApp(
     const MyApp()
@@ -52,12 +49,12 @@ void _showNotification(RemoteMessage message) async{
     onDidReceiveNotificationResponse: (payload){}
   );
   const String channelID = 'high_importance_channel';
-  AndroidNotificationChannel channel = AndroidNotificationChannel(
+  AndroidNotificationChannel channel = const AndroidNotificationChannel(
     channelID, 
     'High Importance Notifications',
     importance: Importance.max
   );
-  AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+  AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails(
     channelID, 
     'High Importance Notifications',
     channelDescription: 'Channel description',
@@ -85,6 +82,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider( create: (_) => ProviderDropdown() ),
         ChangeNotifierProvider( create: (_) => ProviderInputTime() ),
         ChangeNotifierProvider( create: (_) => ImageInputProvider() ),
+        ChangeNotifierProvider( create: (_) => ProviderMap() ),
+        ChangeNotifierProvider( create: (_) => ProviderControllerMap() ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
