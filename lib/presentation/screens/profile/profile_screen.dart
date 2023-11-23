@@ -1,7 +1,5 @@
-import 'package:appointment_app/presentation/widgets/profile/profile_form.dart';
 import 'package:appointment_app/presentation/widgets/profile/profile_view.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,17 +15,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: const Text('Profile'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfileForm( edit: true )),
-              );
-            },
-            icon: const Icon(FontAwesomeIcons.penToSquare)
-          )
-        ],
       ),
       body: ProfileView(),
     );

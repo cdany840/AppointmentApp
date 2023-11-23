@@ -13,6 +13,11 @@ class ImageInputProvider extends ChangeNotifier {
   String? get imageUrl => _imageUrl;
   File? get imageFile => _imageFile;
 
+  set imageUrl(String? imageUrl) {
+    _imageUrl = imageUrl;
+    notifyListeners();
+  }
+
   void resetImage() {
     _image = null;
     _imageFile = null;

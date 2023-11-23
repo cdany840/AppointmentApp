@@ -23,8 +23,8 @@ extension Redex on String {
     return phoneRegex.hasMatch(this);
   }
 
-  bool get isValidAddress{
-    RegExp addressRegex = RegExp(r'^(?:\d+\s)?[A-Za-z\s]+\s\d+$');
+  bool get isValidAddress{    
+    RegExp addressRegex = RegExp(r'^(?:\d+\s)?[A-Za-z0-9\sáéíóúüÁÉÍÓÚÜÑñ.,-]+ \d+[A-Za-z]?$');
     return addressRegex.hasMatch(this);
   }
 
@@ -39,8 +39,7 @@ extension Redex on String {
   }
 
   bool get isValidApartment{
-    // RegExp apartmentRegex = RegExp(r'^\d*\s*(?:[A-Za-z]+\s*\d*|[A-Za-z]+)$');
-    RegExp apartmentRegex = RegExp(r'^\d*\s*(?:[A-Za-z]+\s*\d*|[A-Za-z]+)?$');
+    RegExp apartmentRegex = RegExp(r'^[a-zA-Zá-úÁ-Ú0-9\- ]+$');
     return apartmentRegex.hasMatch(this);
   }
 }

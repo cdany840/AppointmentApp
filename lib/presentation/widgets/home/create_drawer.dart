@@ -25,7 +25,7 @@ class _CreateDrawerState extends State<CreateDrawer> {
       child: ListView(
         children: [
           FutureBuilder(
-            future: servicesFirebase.getDataProfile( ServicesFirebase.uid ),
+            future: servicesFirebase.getOneRecordProfile( ServicesFirebase.uid ),
             builder: (context, snapshot) {
               if (snapshot.hasData || getLogin()) {
                 return UserAccountsDrawerHeader(
@@ -73,7 +73,7 @@ class _CreateDrawerState extends State<CreateDrawer> {
             },
           ),
           ListTile(
-            leading: const Icon(FontAwesomeIcons.rectangleList),
+            leading: const Icon(FontAwesomeIcons.newspaper),
             trailing: const Icon(Icons.chevron_right),
             title: const Text('Interesting topics'),
             subtitle: const Text('Subscribe'),
@@ -82,7 +82,16 @@ class _CreateDrawerState extends State<CreateDrawer> {
             },
           ),
           ListTile(
-            leading: const Icon(FontAwesomeIcons.rectangleList),
+            leading: const Icon(FontAwesomeIcons.palette),
+            trailing: const Icon(Icons.chevron_right),
+            title: const Text('App Theme'),
+            subtitle: const Text('Change Color'),
+            onTap: () {
+              Navigator.pushNamed(context, '/theme');
+            },
+          ),
+          ListTile(
+            leading: const Icon(FontAwesomeIcons.rightFromBracket),
             trailing: const Icon(Icons.chevron_right),
             title: const Text('Logout'),
             subtitle: const Text('Cerrar sesion'),

@@ -27,6 +27,7 @@ class LoginIconsButtons extends StatelessWidget {
             try{
               UserCredential userCredential = await AuServiceGH().signInWithGitHub();
               if(context.mounted){
+                userCredential.toString();
                 Preferences.prefsLogin.setString('login', 'Github'); // ? Debería guardar tipo sessión.
                 Preferences.prefsSession.setBool('session', true);
                 Navigator.pushNamed(context, '/home');

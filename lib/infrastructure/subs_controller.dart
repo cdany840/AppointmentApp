@@ -1,5 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-class subsController{
+class SubsController{
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   Future<void> subToTopic(String topic) async{
     await _firebaseMessaging.subscribeToTopic(topic);

@@ -1,3 +1,4 @@
+import 'package:appointment_app/infrastructure/models/business_model.dart';
 import 'package:appointment_app/infrastructure/models/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,8 +20,12 @@ class ServicesFirebase {
     return _servicesCollection!.doc().set(map);
   }
 
-  Future<void> updService(Map<String,dynamic> map, String id) async {
-    return _servicesCollection!.doc(id).update(map);
+  Future<void> updService(Map<String,dynamic> map, String uid) async {
+    QuerySnapshot documents = await _servicesCollection!.where('uid_user', isEqualTo: uid).get();
+    for (QueryDocumentSnapshot document in documents.docs) {
+      DocumentReference docRef = _servicesCollection!.doc(document.id);
+      await docRef.update(map);
+    }
   }
 
   Future<void> delService(String id) async {
@@ -31,15 +36,23 @@ class ServicesFirebase {
     return _servicesCollection!.snapshots();
   }
 
-  Future<ProfileModel?> getDataProfile( String uid ) async {
-    QuerySnapshot querySnapshot = await _servicesCollection!.where("iduser", isEqualTo: uid).get();
+  Future<ProfileModel?> getOneRecordProfile( String uid ) async {
+    QuerySnapshot querySnapshot = await _servicesCollection!.where('uid_user', isEqualTo: uid).get();
     try {
       return ProfileModel.fromJson( querySnapshot.docs.first.data() as Map<String, dynamic> );    
     } catch (error) {
       return null;
-    }
+    }    
   }
 
+  Future<BusinessModel?> getOneRecordBusiness( String uid ) async {
+    QuerySnapshot querySnapshot = await _servicesCollection!.where('uid_user', isEqualTo: uid).get();
+    try {
+      return BusinessModel.fromJson( querySnapshot.docs.first.data() as Map<String, dynamic> );
+    } catch (error) {
+      return null;
+    }
+  }
   Stream<Map<String, dynamic>> getDataStream() {
     DocumentReference docRef = _servicesCollection!.doc( uid );
     return docRef.snapshots().map((DocumentSnapshot snapshot) {
