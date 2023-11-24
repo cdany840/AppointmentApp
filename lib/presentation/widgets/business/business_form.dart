@@ -1,7 +1,7 @@
 import 'package:appointment_app/config/helpers/shared/services_firebase.dart';
 import 'package:appointment_app/infrastructure/models/business_model.dart';
-import 'package:appointment_app/presentation/providers/form/form_provider.dart';
-import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
+import 'package:appointment_app/presentation/providers/form/provider_form.dart';
+import 'package:appointment_app/presentation/providers/form/provider_image_input.dart';
 import 'package:appointment_app/presentation/widgets/business/business_map.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:appointment_app/presentation/widgets/shared/image_input.dart';
@@ -60,7 +60,7 @@ class _BusinessFormState extends State<BusinessForm> {
   @override
   Widget build(BuildContext context) {
     final dropDownProvider = context.watch<ProviderDropdown>();
-    final selectImage = context.watch<ImageInputProvider>();
+    final selectImage = context.watch<ProviderImageInput>();
     return WillPopScope(
       onWillPop: () async {
         selectImage.resetImage();
@@ -199,6 +199,7 @@ class _BusinessFormState extends State<BusinessForm> {
                   const SizedBox( height: 16 ),
                   StyleElevatedButton(
                     onPressed: () async {
+                      selectImage.folder = 'business';
                       if (widget.businessModel != null) selectImage.imageUrl = widget.businessModel!.image;
                       BusinessModel business = BusinessModel(
                         uidUser: ServicesFirebase.uid,
@@ -214,12 +215,12 @@ class _BusinessFormState extends State<BusinessForm> {
                       );
                       if (_formKey.currentState!.validate()) {
                         if (widget.businessModel != null) {
-                          await servicesFirebase.updService(
+                          await servicesFirebase.updDocument(
                             business.toJson(),
                             ServicesFirebase.uid
                           );                        
                         } else {
-                          await servicesFirebase.insService(
+                          await servicesFirebase.insDocument(
                             business.toJson()
                           );                        
                         }

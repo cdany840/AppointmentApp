@@ -1,6 +1,6 @@
 import 'package:appointment_app/config/helpers/shared/services_firebase.dart';
 import 'package:appointment_app/infrastructure/models/service_model.dart';
-import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
+import 'package:appointment_app/presentation/providers/form/provider_image_input.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:appointment_app/presentation/widgets/shared/image_input.dart';
 import 'package:appointment_app/presentation/widgets/shared/toast.dart';
@@ -23,15 +23,27 @@ class _ServiceFormState extends State<ServiceForm> {
   TextEditingController contDescription = TextEditingController();
   TextEditingController contDuration  = TextEditingController();
   TextEditingController contPrice  = TextEditingController();
+  void resetForm() {
+    contName.clear();
+    contDescription.clear();
+    contDuration.clear();
+    contPrice.clear();
+  }
 
   @override
   void initState() {
+    if (widget.serviceModel != null) {
+      contName.text = widget.serviceModel!.serviceName!;
+      contDescription.text = widget.serviceModel!.serviceDescription!;
+      contDuration.text = widget.serviceModel!.serviceDuration!;
+      contPrice.text = widget.serviceModel!.servicePrice.toString();
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final selectImage = context.watch<ImageInputProvider>();
+    final selectImage = context.watch<ProviderImageInput>();
     return WillPopScope(
       onWillPop: () async {
         selectImage.resetImage();
@@ -107,6 +119,8 @@ class _ServiceFormState extends State<ServiceForm> {
                   const SizedBox( height: 16 ),                
                   StyleElevatedButton(
                     onPressed: () async {
+                      selectImage.folder = 'service';
+                      if (widget.serviceModel != null) selectImage.imageUrl = widget.serviceModel!.image;
                       ServiceModel service = ServiceModel(
                         uidBusiness: ServicesFirebase.uid,
                         serviceName: contName.text,
@@ -119,13 +133,14 @@ class _ServiceFormState extends State<ServiceForm> {
                         if (widget.serviceModel != null) {
                           await servicesFirebase.updService(
                             service.toJson(),
-                            ServicesFirebase.uid
+                            widget.serviceModel!.serviceName!
                           );                        
                         } else {
-                          await servicesFirebase.insService(
+                          await servicesFirebase.insDocument(
                             service.toJson()
                           );
                         }
+                        resetForm();
                         selectImage.resetImage();
                         Navigator.pushNamed(context, '/services');
                         WidgetToast.show('Service Save');

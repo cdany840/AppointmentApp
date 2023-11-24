@@ -1,4 +1,4 @@
-import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
+import 'package:appointment_app/presentation/providers/form/provider_image_input.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +9,7 @@ class ImageInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectImage = context.watch<ImageInputProvider>();
+    final selectImage = context.watch<ProviderImageInput>();
     double screen = MediaQuery.of(context).size.height;
     return Column(
       children: [

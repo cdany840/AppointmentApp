@@ -1,9 +1,9 @@
 import 'package:appointment_app/config/theme/app_theme.dart';
 import 'package:appointment_app/infrastructure/routes.dart';
 import 'package:appointment_app/infrastructure/shared_preferences.dart';
-import 'package:appointment_app/presentation/providers/form/form_provider.dart';
-import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
-import 'package:appointment_app/presentation/providers/map/provider_map.dart';
+import 'package:appointment_app/presentation/providers/form/provider_form.dart';
+import 'package:appointment_app/presentation/providers/form/provider_image_input.dart';
+import 'package:appointment_app/presentation/providers/provider_map.dart';
 import 'package:appointment_app/presentation/providers/provider_theme.dart';
 import 'package:appointment_app/presentation/screens/home/home_screen.dart';
 import 'package:appointment_app/presentation/screens/login/login_screen.dart';
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider( create: (_) => ProviderDropdown() ),
         ChangeNotifierProvider( create: (_) => ProviderInputTime() ),
-        ChangeNotifierProvider( create: (_) => ImageInputProvider() ),
+        ChangeNotifierProvider( create: (_) => ProviderImageInput() ),
         ChangeNotifierProvider( create: (_) => ProviderMap() ),
         ChangeNotifierProvider( create: (_) => ProviderControllerMap() ),
       ],
@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: getRoutes(),
         title: 'AppointmentApp',
-        theme: AppTheme( selectedColor: context.watch<ProviderTheme>().colorValue, fontFamily: 'Lato' ).theme( Brightness.light ),
+        theme: AppTheme( selectedColor: Preferences.prefsThemeColor.getInt('color') ?? 2, fontFamily: 'Lato' ).theme( Brightness.light ),
         themeMode: MediaQuery.of(context).platformBrightness == Brightness.dark
           ? ThemeMode.dark
           : ThemeMode.light,

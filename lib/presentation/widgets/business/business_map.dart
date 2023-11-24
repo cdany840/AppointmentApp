@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:appointment_app/presentation/providers/map/provider_map.dart';
+import 'package:appointment_app/presentation/providers/provider_map.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';

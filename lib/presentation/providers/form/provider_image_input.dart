@@ -3,15 +3,22 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImageInputProvider extends ChangeNotifier {
+class ProviderImageInput extends ChangeNotifier {
   FileImage? _image;
   String? _imageUrl;
+  String? _folder;
   File? _imageFile;
   final picker = ImagePicker();
 
   FileImage? get image => _image;
   String? get imageUrl => _imageUrl;
+  String? get folder => _folder;
   File? get imageFile => _imageFile;
+
+  set folder(String? folder) {
+    _folder = folder;
+    notifyListeners();
+  }
 
   set imageUrl(String? imageUrl) {
     _imageUrl = imageUrl;
@@ -37,7 +44,7 @@ class ImageInputProvider extends ChangeNotifier {
 
   Future<void> uploadImageToFirebase(String file) async {
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('image/$fileName.jpg');
+    Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('$folder/$fileName.jpg');
     UploadTask uploadTask = firebaseStorageRef.putFile(File(file));
     await uploadTask.whenComplete(() async {
       _imageUrl = await firebaseStorageRef.getDownloadURL();

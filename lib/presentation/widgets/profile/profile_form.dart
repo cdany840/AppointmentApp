@@ -1,8 +1,8 @@
 import 'package:appointment_app/config/helpers/shared/services_firebase.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
 import 'package:appointment_app/infrastructure/models/profile_model.dart';
-import 'package:appointment_app/presentation/providers/form/form_provider.dart';
-import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
+import 'package:appointment_app/presentation/providers/form/provider_form.dart';
+import 'package:appointment_app/presentation/providers/form/provider_image_input.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:appointment_app/presentation/widgets/shared/date_input.dart';
 import 'package:appointment_app/presentation/widgets/shared/image_input.dart';
@@ -51,7 +51,7 @@ class _ProfileFormState extends State<ProfileForm> {
   @override
   Widget build(BuildContext context) {
     final dropDownProvider = context.watch<ProviderDropdown>();
-    final selectImage = context.watch<ImageInputProvider>();
+    final selectImage = context.watch<ProviderImageInput>();
     return WillPopScope(
       onWillPop: () async {
         selectImage.resetImage();
@@ -153,6 +153,7 @@ class _ProfileFormState extends State<ProfileForm> {
                   const SizedBox( height: 16 ),
                   StyleElevatedButton(
                     onPressed: () async {
+                      selectImage.folder = 'profile';
                       if (widget.profileModel != null) selectImage.imageUrl = widget.profileModel!.image;
                       ProfileModel profile = ProfileModel(
                         uidUser: ServicesFirebase.uid,
@@ -165,12 +166,12 @@ class _ProfileFormState extends State<ProfileForm> {
                       );
                       if (formKey.currentState!.validate()) {
                         if (widget.profileModel != null) {
-                          await servicesFirebase.updService(
+                          await servicesFirebase.updDocument(
                             profile.toJson(),
                             ServicesFirebase.uid
                           );                        
                         } else {
-                          await servicesFirebase.insService(
+                          await servicesFirebase.insDocument(
                             profile.toJson()
                           );                        
                         }
