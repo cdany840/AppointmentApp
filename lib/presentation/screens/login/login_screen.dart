@@ -1,6 +1,7 @@
 import 'package:appointment_app/presentation/widgets/login/login_form.dart';
 import 'package:appointment_app/presentation/widgets/login/login_icons_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,22 +22,40 @@ class _LoginScreenState extends State<LoginScreen> {
         title: const Text('Login'),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body:  Stack(
         children: [
-          Container(
-            margin: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color.fromARGB(255, 191, 211, 244)
+          Align(
+            alignment: Alignment.center,
+            child: LottieBuilder.asset(
+              "assets/animations/a.json",
+              //height: 340,
             ),
-            child: LoginForm(
-              emailController: userCont,
-              passController: passCont,
+          ),
+         Align(
+            alignment: Alignment.topCenter,
+            child: LottieBuilder.asset(
+              "assets/animations/xmaslogin.json",
+              height: 200,
             ),
-          ),          
-          const LoginIconsButtons(
-            color: Color.fromARGB(255, 51, 51, 51),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.teal,
+                ),
+                child: LoginForm(
+                  emailController: userCont,
+                  passController: passCont,
+                ),
+              ),          
+              const LoginIconsButtons(
+                color: Color.fromARGB(255, 51, 51, 51),
+              ),
+            ],
           ),
         ],
       ),

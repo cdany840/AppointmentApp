@@ -6,6 +6,8 @@ import 'package:appointment_app/presentation/screens/home/theme_screen.dart';
 import 'package:appointment_app/presentation/screens/login/forgot_pass_screen.dart';
 import 'package:appointment_app/presentation/screens/login/login_screen.dart';
 import 'package:appointment_app/presentation/screens/login/register_screen.dart';
+import 'package:appointment_app/presentation/screens/onboarding/card_data.dart';
+import 'package:appointment_app/presentation/screens/onboarding/onboarding.dart';
 import 'package:appointment_app/presentation/screens/profile_screen.dart';
 import 'package:appointment_app/presentation/screens/topicsScreen.dart';
 import 'package:flutter/material.dart';
@@ -22,5 +24,6 @@ Map<String, WidgetBuilder> getRoutes(){
     '/add_service' : (BuildContext context) => const ServiceForm(),
     '/subs' : (BuildContext context) => const TopicsScreen(),
     '/theme' : (BuildContext context) => ThemeScreen(),
+    '/ob' : (BuildContext context) => Onboarding(),
   };
 }

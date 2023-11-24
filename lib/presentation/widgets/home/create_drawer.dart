@@ -99,6 +99,15 @@ class _CreateDrawerState extends State<CreateDrawer> {
             },
           ),
           ListTile(
+            leading: const Icon(FontAwesomeIcons.handshake),
+            trailing: const Icon(Icons.chevron_right),
+            title: const Text('On Boarding'),
+            subtitle: const Text('Know more about us'),
+            onTap: () {
+              Navigator.pushNamed(context, '/ob');
+            },
+          ),
+          ListTile(
             leading: const Icon(FontAwesomeIcons.rightFromBracket),
             trailing: const Icon(Icons.chevron_right),
             title: const Text('Logout'),

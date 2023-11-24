@@ -38,7 +38,7 @@ class CardCourse extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(flex: 3),
+              const Spacer(flex: 4),
               Flexible(
                 flex: 20,
                 child: Image(image: data.image),
@@ -52,7 +52,8 @@ class CardCourse extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
                 ),
-                maxLines: 1,
+                textAlign: TextAlign.center,
+                maxLines: 2,
               ),
               const Spacer(flex: 1),
               Text(
@@ -62,9 +63,9 @@ class CardCourse extends StatelessWidget {
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: 3,
               ),
-              const Spacer(flex: 10),
+              const Spacer(flex: 5),
             ],
           ),
         ),
