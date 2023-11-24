@@ -1,44 +1,36 @@
 import 'package:appointment_app/presentation/screens/citas/completadas.dart';
-import 'package:appointment_app/presentation/screens/citas/nuevas.dart';
 import 'package:appointment_app/presentation/screens/citas/pendientes.dart';
-import 'package:appointment_app/presentation/widgets/home/create_drawer.dart';
+import 'package:appointment_app/presentation/screens/home/home_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class citasNuevas extends StatefulWidget {
+  const citasNuevas({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<citasNuevas> createState() => _citasNuevasState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {  
-  // static String uid = '';
+class _citasNuevasState extends State<citasNuevas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welcome!'),
-        centerTitle: true,
-      ),
       backgroundColor: Colors.blueGrey,
       bottomNavigationBar: CurvedNavigationBar(
         height: 55,
         backgroundColor: Colors.blueGrey,
         color: Colors.blueGrey.shade100,
         animationDuration: Duration(milliseconds: 600),
-        index: 0,
+        index: 1,
         onTap: (index){
           switch(index){
             case 0:
-            break;
-            case 1:
-              Future.delayed(Duration(milliseconds: 600), () {
+            Future.delayed(Duration(milliseconds: 600), () {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) => citasNuevas(),
-                    settings: RouteSettings(name: '/cnuevas'),
+                    pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(),
+                    settings: RouteSettings(name: '/home'),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return child;
                     },
@@ -46,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               });
+            break;
+            case 1:
             break;
             case 2:
               Future.delayed(Duration(milliseconds: 600), () {
@@ -88,8 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
           Icon(Icons.beenhere_outlined, color: Colors.blueGrey,),
         ]
       ),
-      drawer: const CreateDrawer(),
-      body: Container(),
     );
   }
 }

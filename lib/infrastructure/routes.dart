@@ -1,6 +1,9 @@
 import 'package:appointment_app/presentation/screens/business/business_screen.dart';
 import 'package:appointment_app/presentation/screens/business/services/add_services.dart';
 import 'package:appointment_app/presentation/screens/business/services/services_screen.dart';
+import 'package:appointment_app/presentation/screens/citas/completadas.dart';
+import 'package:appointment_app/presentation/screens/citas/nuevas.dart';
+import 'package:appointment_app/presentation/screens/citas/pendientes.dart';
 import 'package:appointment_app/presentation/screens/home/home_screen.dart';
 import 'package:appointment_app/presentation/screens/home/theme_screen.dart';
 import 'package:appointment_app/presentation/screens/login/forgot_pass_screen.dart';
@@ -22,5 +25,8 @@ Map<String, WidgetBuilder> getRoutes(){
     '/add_service' : (BuildContext context) => const AddService(),
     '/subs' : (BuildContext context) => const TopicsScreen(),
     '/theme' : (BuildContext context) => ThemeScreen(),
+    '/cnuevas' : (BuildContext context) => citasNuevas(),
+    '/cpendientes' : (BuildContext context) => citasPendientes(),
+    '/ccompletadas' : (BuildContext context) => citasCompletadas(),
   };
 }
