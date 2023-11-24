@@ -1,5 +1,6 @@
 import 'package:appointment_app/presentation/widgets/login/register_form.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -20,19 +21,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
         title: const Text('Register'),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body:   Stack(
         children: [
-          Container(
-            margin: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color.fromARGB(255, 191, 211, 244)
+          Align(
+            alignment: Alignment.center,
+            child: LottieBuilder.asset(
+              "assets/animations/a.json",
+              //height: 340,
             ),
-            child: RegisterForm(
-              emailController: userCont,
-              passController: passCont,
+          ),
+         Align(
+            alignment: Alignment.topCenter,
+            child: LottieBuilder.asset(
+              "assets/animations/xmaslogin.json",
+              height: 200,
             ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.teal,
+                ),
+                child: RegisterForm(
+                  emailController: userCont,
+                  passController: passCont,
+                ),
+              ),
+            ],
           ),
         ],
       ),
