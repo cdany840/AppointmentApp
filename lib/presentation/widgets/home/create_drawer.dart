@@ -1,5 +1,7 @@
-import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:appointment_app/config/helpers/shared/services_firebase.dart';
+import 'package:appointment_app/config/helpers/login/auth_google.dart';
 import 'package:appointment_app/infrastructure/shared_preferences.dart';
+import 'package:appointment_app/presentation/widgets/business/business_form.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class CreateDrawer extends StatefulWidget {
 
 class _CreateDrawerState extends State<CreateDrawer> {
   ServicesFirebase servicesFirebase = ServicesFirebase( collection: 'profile' );
+  ServicesFirebase checkBusiness = ServicesFirebase( collection: 'business' );
+  AuServiceG auServiceG = AuServiceG();
   final User? user = FirebaseAuth.instance.currentUser;
   bool getLogin() {
     return  Preferences.prefsLogin.getString('login') == 'Google' || Preferences.prefsLogin.getString('login') == 'Github';
@@ -59,8 +63,12 @@ class _CreateDrawerState extends State<CreateDrawer> {
             trailing: const Icon(Icons.chevron_right),
             title: const Text('Edit Business'),
             subtitle: const Text('Merchants Data'),
-            onTap: () {
-              Navigator.pushNamed(context, '/business');
+            onTap: () async {
+              if ( await checkBusiness.getOneRecordBusiness(ServicesFirebase.uid) == null ) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BusinessForm()));
+              } else {
+                Navigator.pushNamed(context, '/business');
+              }
             },
           ),
           ListTile(
@@ -95,8 +103,11 @@ class _CreateDrawerState extends State<CreateDrawer> {
             trailing: const Icon(Icons.chevron_right),
             title: const Text('Logout'),
             subtitle: const Text('Cerrar sesion'),
-            onTap: () {
+            onTap: () async {
               Preferences.prefsSession.setBool('session', false);
+              Preferences.prefsLogin.setString('login', '');
+              servicesFirebase.userSignOut();
+              auServiceG.signOutWithGoogle();
               Navigator.pushNamed(context, '/login');
             },
           ),

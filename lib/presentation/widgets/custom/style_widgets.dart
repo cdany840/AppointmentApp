@@ -157,13 +157,13 @@ class StyleElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 51, 51, 51)),
-        foregroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 245, 245, 245)),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
-        )),
-      ),
+      // style: ButtonStyle(
+      //   backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 51, 51, 51)),
+      //   foregroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 245, 245, 245)),
+      //   shape: MaterialStateProperty.all(RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(6),
+      //   )),
+      // ),
       child: Text(text)
     );
   }

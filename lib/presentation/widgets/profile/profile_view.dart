@@ -1,4 +1,4 @@
-import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:appointment_app/config/helpers/shared/services_firebase.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:appointment_app/presentation/widgets/profile/profile_form.dart';
 import 'package:flutter/material.dart';
@@ -54,14 +54,15 @@ class ProfileView extends StatelessWidget {
                   icon: FontAwesomeIcons.venus
                 ),
                 RowProfile(
-                  text: calculateAge(profile.birthdayDate!).toString(),
+                  text: '${calculateAge(profile.birthdayDate!)} Años',
                   icon: FontAwesomeIcons.cakeCandles
                 ),
+                const SizedBox( height: 16 ),
                 StyleElevatedButton(
                   text: 'Edit Profile',
                   onPressed: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ProfileForm(  )),
+                    MaterialPageRoute(builder: (context) => ProfileForm( profileModel: profile )),
                   ),
                 ),
               ],              

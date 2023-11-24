@@ -8,7 +8,6 @@ extension Redex on String {
   }
 
   bool get isValidName{
-    // RegExp nameRegex = RegExp(r'^[a-zA-Z\s]+$');
     RegExp nameRegex = RegExp(r'^[a-zA-ZÀ-ÿ\s]+$');
     return nameRegex.hasMatch(this);
   }

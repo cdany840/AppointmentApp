@@ -41,6 +41,7 @@ dependencies:
     sdk: flutter
   flutter_local_notifications: ^16.1.0
   flutter_riverpod: ^2.4.6
+  flutter_slidable: ^3.0.1
   fluttertoast: ^8.2.3
   font_awesome_flutter: ^10.6.0
   google_maps_flutter: ^2.5.0

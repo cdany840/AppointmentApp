@@ -1,4 +1,4 @@
-import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:appointment_app/config/helpers/shared/services_firebase.dart';
 import 'package:appointment_app/config/helpers/shared/regex.dart';
 import 'package:appointment_app/infrastructure/models/profile_model.dart';
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
@@ -55,12 +55,16 @@ class _ProfileFormState extends State<ProfileForm> {
     return WillPopScope(
       onWillPop: () async {
         selectImage.resetImage();
+        if (widget.profileModel == null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileForm()));
+        }
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
           title: widget.profileModel == null ? const Text('Create Profile') : const Text('Edit Profile'),
           centerTitle: true,
+          automaticallyImplyLeading: widget.profileModel == null ? false : true,
         ),
         body: Form(
           key: formKey,
@@ -143,7 +147,9 @@ class _ProfileFormState extends State<ProfileForm> {
                     },
                   ),
                   const SizedBox( height: 16 ),
-                  const ImageInput(),
+                  widget.profileModel != null
+                  ? ImageInput( imageUrl: widget.profileModel!.image )
+                  : const ImageInput( imageUrl: 'https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png' ),
                   const SizedBox( height: 16 ),
                   StyleElevatedButton(
                     onPressed: () async {
@@ -157,7 +163,7 @@ class _ProfileFormState extends State<ProfileForm> {
                         birthdayDate: DateFormat("yyyy-MM-dd").parseLoose(contBirthday.text),
                         gender: dropdownValue,
                       );
-                      if (formKey.currentState!.validate()) {                      
+                      if (formKey.currentState!.validate()) {
                         if (widget.profileModel != null) {
                           await servicesFirebase.updService(
                             profile.toJson(),
@@ -170,7 +176,10 @@ class _ProfileFormState extends State<ProfileForm> {
                         }
                         resetForm();
                         selectImage.resetImage();
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamedAndRemoveUntil( // ! Remover en caso de error.
+                          context, '/home', (Route<dynamic> route) => false,
+                        );
+                        // Navigator.pushNamed(context, '/home');
                         WidgetToast.show('Profile Save');
                       }
                     },

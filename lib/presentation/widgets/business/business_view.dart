@@ -1,4 +1,4 @@
-import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:appointment_app/config/helpers/shared/services_firebase.dart';
 import 'package:appointment_app/presentation/widgets/business/business_form.dart';
 import 'package:appointment_app/presentation/widgets/custom/style_widgets.dart';
 import 'package:flutter/material.dart';

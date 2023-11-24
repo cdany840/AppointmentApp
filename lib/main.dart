@@ -33,7 +33,6 @@ void main() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) { 
     _showNotification(message);
   });
-  // ? String? token = await messaging.getToken();
 
   runApp(
     ChangeNotifierProvider(

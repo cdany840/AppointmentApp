@@ -1,4 +1,4 @@
-import 'package:appointment_app/config/helpers/business/services_firebase.dart';
+import 'package:appointment_app/config/helpers/shared/services_firebase.dart';
 import 'package:appointment_app/infrastructure/models/business_model.dart';
 import 'package:appointment_app/presentation/providers/form/form_provider.dart';
 import 'package:appointment_app/presentation/providers/form/image_input_provider.dart';
@@ -79,7 +79,9 @@ class _BusinessFormState extends State<BusinessForm> {
               child: Column(
                 children: [
                   const SizedBox( height: 16 ),
-                  ImageInput( imageUrl: widget.businessModel!.image ),
+                  widget.businessModel != null
+                  ? ImageInput( imageUrl: widget.businessModel!.image )
+                  : const ImageInput( imageUrl: 'https://cdn-icons-png.flaticon.com/512/8188/8188141.png' ),
                   const SizedBox( height: 16 ),
                   StyleTextFormField(
                     hintText: 'Mary\'s Groceries',
@@ -223,7 +225,10 @@ class _BusinessFormState extends State<BusinessForm> {
                         }
                         resetForm();
                         selectImage.resetImage();
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamedAndRemoveUntil( // ! Remover en caso de error.
+                          context, '/home', (Route<dynamic> route) => false,
+                        );
+                        // Navigator.pushNamed(context, '/home');
                         WidgetToast.show('Business Save');
                       }
                     },
